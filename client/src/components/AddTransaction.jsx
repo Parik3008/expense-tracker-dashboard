@@ -22,16 +22,23 @@ function AddTransaction({ fetchTransactions }) {
       return
     }
 
-    await API.post("/transactions", form)
+    try {
+      await API.post("/transactions", form)
 
-    setForm({
-      title: "",
-      amount: "",
-      type: "expense",
-      category: ""
-    })
+      setForm({
+        title: "",
+        amount: "",
+        type: "expense",
+        category: ""
+      })
 
-    fetchTransactions()
+      fetchTransactions()
+
+      alert("Transaction Added Successfully")
+    } catch (error) {
+      console.log(error)
+      alert("Failed to add transaction")
+    }
   }
 
   return (
@@ -101,7 +108,10 @@ function AddTransaction({ fetchTransactions }) {
         className="border p-2 w-full mb-3 rounded"
       />
 
-      <button className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600">
+      <button
+        type="submit"
+        className="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600 transition duration-300"
+      >
         Add Transaction
       </button>
     </form>
